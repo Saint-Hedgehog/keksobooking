@@ -82,4 +82,4 @@ const getPins = (data) => {
 
 // Заполненный фрагмент добавляем в разметку на карте
 const addMap = getPinsAdd();
-map.append(getPins(addMap));
+map.prepend(getPins(addMap));
