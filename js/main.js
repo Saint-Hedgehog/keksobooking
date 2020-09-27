@@ -22,7 +22,7 @@ const getLocation = () => {
 const getRandomItems = (items, num) => items.splice(Math.floor(Math.random() * num));
 
 // Создаем массив сгенерированных JS объектов, добавляем элементы в конец массива и возвращаем новую длину массива.
-const getPinsAdd = () => {
+const getPinsAd = () => {
   const pinsData = [];
   const types = [`palace`, `flat`, `house`, `bungalo`];
   const features = [`wifi`, `dishwasher`, `parking`, `washer`, `elevator`, `conditioner`];
@@ -40,7 +40,7 @@ const getPinsAdd = () => {
           },
           offer: {
             title: `Обьявление`,
-            address: getLocation(),
+            adress: getLocation(),
             price: getRandomNubmer(1000, 10000),
             type: getRandomItem(types),
             rooms: getRandomNubmer(1, 10),
@@ -62,7 +62,7 @@ const getPinsAdd = () => {
   return pinsData;
 };
 
-// Создаем метки объявления и добавляем их в фрагмент
+// Находит шаблон для отрисовки пина на карте и заполняем его
 const getPins = (data) => {
   const pinTemplate = document.querySelector(`#pin`).content.querySelector(`.map__pin`);
   const fragment = document.createDocumentFragment();
@@ -80,6 +80,7 @@ const getPins = (data) => {
   return fragment;
 };
 
-// Заполненный фрагмент добавляем в разметку на карте
-const addMap = getPinsAdd();
-map.prepend(getPins(addMap));
+// Заполненный фрагмент добавляем его разметку на карте
+const adMap = getPinsAd();
+const adMapPins = document.querySelector(`.map__pins`);
+adMapPins.append(getPins(adMap));
