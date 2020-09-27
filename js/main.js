@@ -40,7 +40,7 @@ const getPinsAd = () => {
           },
           offer: {
             title: `Обьявление`,
-            adress: getLocation(),
+            address: getLocation(),
             price: getRandomNubmer(1000, 10000),
             type: getRandomItem(types),
             rooms: getRandomNubmer(1, 10),
