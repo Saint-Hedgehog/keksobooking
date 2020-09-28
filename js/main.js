@@ -6,7 +6,7 @@ const map = document.querySelector(`.map`);
 map.classList.remove(`map--faded`);
 
 // Получение случайного целого числа в заданном интервале между min и max (максимум не включается, минимум включается)
-const getRandomNubmer = (min, max) => Math.floor(Math.random() * (max - min + 1) + min);
+const getRandomNubmer = (min, max) => Math.floor(Math.random() * (max - min) + min);
 
 // Получение случайной длины элемента
 const getRandomItem = (items) => items[Math.floor(Math.random() * items.length)];
