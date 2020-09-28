@@ -19,7 +19,7 @@ const getLocation = () => {
 };
 
 // Изменяем содержимое массива, удаляя все элементы после случайного индекса(включительно)
-const getRandomItems = (items, num) => items.splice(Math.floor(Math.random() * num));
+const getRandomItems = (items) => items.slice(getRandomNubmer(0, items.length));
 
 // Создаем массив сгенерированных JS объектов, добавляем элементы в конец массива и возвращаем новую длину массива.
 const getPinsAd = () => {
@@ -46,9 +46,9 @@ const getPinsAd = () => {
             guests: getRandomNubmer(1, 5),
             checkin: getRandomItem(checkin),
             checkout: getRandomItem(checkout),
-            features: getRandomItems(features, 6),
+            features: getRandomItems(features),
             description: `Описание`,
-            photos: getRandomItems(houseFotos, 3) // Массив строк случайной длины
+            photos: getRandomItems(houseFotos) // Массив строк случайной длины
           },
           location: {
             x: getRandomNubmer(0, map.clientWidth),
@@ -68,7 +68,7 @@ const getPins = (data) => {
 
   data.forEach((pinData) => {
     const elem = pinTemplate.cloneNode(true);
-    let img = elem.querySelector(`img`);
+    const img = elem.querySelector(`img`);
     elem.style = `left: ${pinData.location.x - img.width / 2}px; top: ${pinData.location.y - img.height}px;`;
     img.src = pinData.author.avatar;
     img.alt = pinData.offer.title;
