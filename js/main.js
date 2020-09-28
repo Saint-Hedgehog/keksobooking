@@ -6,7 +6,7 @@ const map = document.querySelector(`.map`);
 map.classList.remove(`map--faded`);
 
 // Получение случайного целого числа в заданном интервале между min и max (максимум не включается, минимум включается)
-const getRandomNubmer = (min, max) => Math.floor(Math.random() * (max - min) + min);
+const getRandomNubmer = (min, max) => Math.floor(Math.random() * (max - min + 1) + min);
 
 // Получение случайной длины элемента
 const getRandomItem = (items) => items[Math.floor(Math.random() * items.length)];
@@ -31,12 +31,11 @@ const getPinsAd = () => {
   const houseFotos = [`http://o0.github.io/assets/images/tokyo/hotel1.jpg`, `http://o0.github.io/assets/images/tokyo/hotel2.jpg`, `http://o0.github.io/assets/images/tokyo/hotel3.jpg`];
 
   for (let i = 1; i <= MAP_PINS; i++) {
-    i = (i < 10) ? i = `0` + i : i = i;
 
     pinsData.push(
         {
           author: {
-            avatar: `img/avatars/user${i}.png`,
+            avatar: `img/avatars/user0${i}.png`,
           },
           offer: {
             title: `Обьявление`,
@@ -52,7 +51,7 @@ const getPinsAd = () => {
             photos: getRandomItems(houseFotos, 3) // Массив строк случайной длины
           },
           location: {
-            x: getRandomNubmer(10, 1200),
+            x: getRandomNubmer(0, map.clientWidth),
             y: getRandomNubmer(130, 630),
           }
         }
@@ -62,14 +61,14 @@ const getPinsAd = () => {
   return pinsData;
 };
 
-// Находит шаблон для отрисовки пина на карте и заполняем его
+// Находим шаблон для отрисовки пина на карте и заполняем его
 const getPins = (data) => {
   const pinTemplate = document.querySelector(`#pin`).content.querySelector(`.map__pin`);
   const fragment = document.createDocumentFragment();
 
   data.forEach((pinData) => {
     const elem = pinTemplate.cloneNode(true);
-    const img = elem.querySelector(`img`);
+    let img = elem.querySelector(`img`);
     elem.style = `left: ${pinData.location.x - img.width / 2}px; top: ${pinData.location.y - img.height}px;`;
     img.src = pinData.author.avatar;
     img.alt = pinData.offer.title;
