@@ -83,3 +83,79 @@ const getPins = (data) => {
 const adMap = getPinsAd();
 const adMapPins = document.querySelector(`.map__pins`);
 adMapPins.append(getPins(adMap));
+
+// ------------------------------ Часть вторая --------------------------------
+
+// Находим шаблон модального окна с информацией об объявлении и заполняем его
+const getCard = (data) => {
+  const cardTemplate = document.querySelector(`#card`).content;
+  const cardElement = cardTemplate.cloneNode(true);
+  const cardFragment = document.createDocumentFragment();
+  const {title, address, price, rooms, guests, checkin, checkout, description, photos, features, type} = data.offer;// Деструктуризация
+  const {avatar} = data.author;
+
+  // В список .popup__features вводим все доступные удобства
+  const cardFeaturesContainer = cardElement.querySelector(`.popup__features`);
+  const cardFeatures = cardFeaturesContainer.children;
+
+  const generateFeatures = (featuresCard) => {
+    featuresCard.forEach((feature) => {
+      const featureElement = document.createElement(`li`);
+      featureElement.className = `popup__feature popup__feature--${feature}`;
+      cardFragment.appendChild(featureElement);
+    });
+    return cardFragment;
+  };
+
+  for (let j = cardFeatures.length; j--;) {
+    cardFeaturesContainer.removeChild(cardFeatures[j]);
+  }
+
+  // В блок .popup__photos вводим все фотографии из списка offer.photos
+  const renderPhotos = (array, photosCard) => {
+    const cardPhotos = array.querySelector(`.popup__photos`);
+    const cardPhoto = cardPhotos.querySelector(`img`);
+    while (cardPhotos.firstChild) {
+      cardPhotos.removeChild(cardPhotos.firstChild);
+    }
+    photosCard.forEach((photo) => {
+      const newcardPhoto = cardPhoto.cloneNode(true);
+      newcardPhoto.src = photo;
+      cardFragment.appendChild(newcardPhoto);
+    });
+    cardPhotos.appendChild(cardFragment);
+  };
+
+  // В блок .popup__type вводим тип жилья
+  const cardType = cardElement.querySelector(`.popup__type`);
+  switch (type) {
+    case (`flat`):
+      cardType.textContent = `квартира`;
+      break;
+    case (`bungalo`):
+      cardType.textContent = `бунгало`;
+      break;
+    case (`house`):
+      cardType.textContent = `дом`;
+      break;
+    case (`palace`):
+      cardType.textContent = `дворец`;
+      break;
+  }
+
+  // Вводим остальные данные
+  cardElement.querySelector(`.popup__title`).textContent = title;
+  cardElement.querySelector(`.popup__text--address`).textContent = address;
+  cardElement.querySelector(`.popup__text--price`).textContent = `${price}₽/ночь`;
+  cardElement.querySelector(`.popup__text--capacity`).textContent = `${rooms} комнаты для ${guests} гостей`;
+  cardElement.querySelector(`.popup__text--time`).textContent = `Заезд после ${checkin}, выезд до ${checkout}`;
+  cardFeaturesContainer.appendChild(generateFeatures(features));
+  cardElement.querySelector(`.popup__description`).textContent = description;
+  renderPhotos(cardElement, photos);
+  cardElement.querySelector(`.popup__avatar`).src = avatar;
+  return cardElement;
+};
+
+// Вставляем полученный DOM-элемент в блок .map перед блоком.map__filters-container
+const mapFilterContainer = document.querySelector(`.map__filters-container`);
+map.insertBefore(getCard(adMap[0]), mapFilterContainer);
