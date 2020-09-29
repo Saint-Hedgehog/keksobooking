@@ -143,7 +143,7 @@ const getCard = (data) => {
       break;
   }
 
-  // Вводим остальные данные
+  // Вводим остальные данные в шаблон
   cardElement.querySelector(`.popup__title`).textContent = title;
   cardElement.querySelector(`.popup__text--address`).textContent = address;
   cardElement.querySelector(`.popup__text--price`).textContent = `${price}₽/ночь`;
