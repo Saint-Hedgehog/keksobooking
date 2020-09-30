@@ -96,28 +96,22 @@ const getCard = (data) => {
 
   // В список .popup__features вводим все доступные удобства
   const cardFeaturesContainer = cardElement.querySelector(`.popup__features`);
-  const cardFeatures = cardFeaturesContainer.children;
-
-  const generateFeatures = (featuresCard) => {
-    featuresCard.forEach((feature) => {
+  const generateFeatures = function (featuresCard) {
+    featuresCard.forEach(function (feature) {
       const featureElement = document.createElement(`li`);
       featureElement.className = `popup__feature popup__feature--${feature}`;
       cardFragment.appendChild(featureElement);
     });
     return cardFragment;
   };
-
-  for (let j = cardFeatures.length; j--;) {
-    cardFeaturesContainer.removeChild(cardFeatures[j]);
-  }
+  cardFeaturesContainer.innerHTML = ``;
 
   // В блок .popup__photos вводим все фотографии из списка offer.photos
-  const renderPhotos = (array, photosCard) => {
-    const cardPhotos = array.querySelector(`.popup__photos`);
+  const renderPhotos = (popupPhotos, photosCard) => {
+    const cardPhotos = popupPhotos.querySelector(`.popup__photos`);
     const cardPhoto = cardPhotos.querySelector(`img`);
-    while (cardPhotos.firstChild) {
-      cardPhotos.removeChild(cardPhotos.firstChild);
-    }
+
+    cardPhotos.innerHTML = ``;
     photosCard.forEach((photo) => {
       const newcardPhoto = cardPhoto.cloneNode(true);
       newcardPhoto.src = photo;
