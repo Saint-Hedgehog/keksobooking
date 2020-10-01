@@ -122,17 +122,24 @@ const getCard = (data) => {
 
   // В блок .popup__type вводим тип жилья
   const cardType = cardElement.querySelector(`.popup__type`);
+  const Housing = {
+    FLAT: `flat`,
+    BUNGALO: `bungalo`,
+    HOUSE: `house`,
+    PALACE: `palace`,
+  };
+
   switch (type) {
-    case (`flat`):
+    case (Housing.FLAT):
       cardType.textContent = `квартира`;
       break;
-    case (`bungalo`):
+    case (Housing.BUNGALO):
       cardType.textContent = `бунгало`;
       break;
-    case (`house`):
+    case (Housing.HOUSE):
       cardType.textContent = `дом`;
       break;
-    case (`palace`):
+    case (Housing.PALACE):
       cardType.textContent = `дворец`;
       break;
   }
