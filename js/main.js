@@ -1,5 +1,5 @@
-(function () {
-  'use strict';
+'use strict';
+(() => {
   const MAP_PINS = 8;
 
   // Переключает карту из неактивного состояния в активное
@@ -86,8 +86,8 @@
   adMapPins.append(getPins(adMap));
 
   // ------------------------------ Часть вторая --------------------------------
-  const generateFeatures = function (featuresCard, cardFragment) {
-    featuresCard.forEach(function (feature) {
+  const generateFeatures = (featuresCard, cardFragment) => {
+    featuresCard.forEach((feature) => {
       const featureElement = document.createElement(`li`);
       featureElement.className = `popup__feature popup__feature--${feature}`;
       cardFragment.appendChild(featureElement);
@@ -99,11 +99,10 @@
     const cardTemplate = document.querySelector(`#card`).content;
     const cardElement = cardTemplate.cloneNode(true);
     const cardFragment = document.createDocumentFragment();
-    const {title, address, price, rooms, guests, checkin, checkout, description, photos, features, type} = data.offer;// Деструктуризация
+    const {title, address, price, rooms, guests, checkin, checkout, description, photos, features, type} = data.offer; // Деструктуризация
     const {avatar} = data.author;
 
     // В список .popup__features вводим все доступные удобства
-
     const cardFeaturesContainer = cardElement.querySelector(`.popup__features`);
 
     cardFeaturesContainer.innerHTML = ``;
