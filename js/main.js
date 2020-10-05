@@ -183,30 +183,30 @@
   const adFormGuestNumber = adForm.querySelector(`#capacity`);
 
   // Все <input>, <select>, <textarea> и кнопка опубликовать, очистить формы .ad-form и карты заблокированы с помощью атрибута disabled
-  const statusDisabled = (elements) => {
+  const setStatusDisabled = (elements) => {
     elements.forEach((element) => {
       element.setAttribute(`disabled`, `true`);
     });
   };
 
-  const statusActive = (elements) => {
+  const setStatusActive = (elements) => {
     elements.forEach((element) => {
       element.removeAttribute(`disabled`, `true`);
     });
   };
 
-  statusDisabled(mapFilterSelects);
-  statusDisabled(mapFilterInputs);
-  statusDisabled(adFormSelects);
-  statusDisabled(adFormInputs);
+  setStatusDisabled(mapFilterSelects);
+  setStatusDisabled(mapFilterInputs);
+  setStatusDisabled(adFormSelects);
+  setStatusDisabled(adFormInputs);
   adFormTextarea.setAttribute(`disabled`, `true`);
   adFormSubmit.setAttribute(`disabled`, `true`);
 
   // Заполнение поля адреса
-  const initlPinMainPosition = () => {
+  const initPinMainPosition = () => {
     mainPinLocation.value = `${pinCenterPositionX}, ${pinCenterPositionY}`;
   };
-  initlPinMainPosition();
+  initPinMainPosition();
 
   const setupAddress = () => {
     const newPinPositionY = Math.floor(mainPin.offsetTop + MAIN_PIN_HEIGHT + PIN_TIP_HEIGHT);
@@ -216,25 +216,25 @@
   // Активация страницы по событиям
   mainPin.addEventListener(`mousedown`, (evt) => {
     if (evt.button === MOUSE_MAIN_BUTTON) {
-      activationPage();
+      activatePage();
     }
   });
 
   const onMainPinEnterPress = (evt) => {
     if (evt.key === `Enter`) {
-      activationPage();
+      activatePage();
     }
   };
 
   mainPin.addEventListener(`keydown`, onMainPinEnterPress);
 
-  const activationPage = () => {
+  const activatePage = () => {
     adForm.classList.remove(`ad-form--disabled`);
     map.classList.remove(`map--faded`);
-    statusActive(adFormInputs);
-    statusActive(adFormSelects);
-    statusActive(mapFilterSelects);
-    statusActive(mapFilterInputs);
+    setStatusActive(adFormInputs);
+    setStatusActive(adFormSelects);
+    setStatusActive(mapFilterSelects);
+    setStatusActive(mapFilterInputs);
     setupAddress();
     adFormTextarea.removeAttribute(`disabled`, `true`);
     adFormSubmit.removeAttribute(`disabled`, `true`);
@@ -286,7 +286,7 @@
   const setGuestNumber = (roomNumber, guestNumber) => {
     switch (roomNumber) {
       case 1:
-        if (!(roomNumber === guestNumber)) {
+        if (roomNumber !== guestNumber) {
           adFormGuestNumber.setCustomValidity(`1 комната для 1 гостя`);
         } else {
           adFormGuestNumber.setCustomValidity(``);
@@ -307,7 +307,7 @@
         }
         break;
       case 100:
-        if (!(roomNumber === guestNumber)) {
+        if (roomNumber !== guestNumber) {
           adFormGuestNumber.setCustomValidity(`не для гостей`);
         } else {
           adFormGuestNumber.setCustomValidity(``);
@@ -316,8 +316,8 @@
   };
 
   const setGuestNumbers = () => {
-    let roomNumber = checkRoomNumber(adFormRoomNumber.value);
-    let guestNumber = checkGuestNumber(adFormGuestNumber.value);
+    const roomNumber = checkRoomNumber(adFormRoomNumber.value);
+    const guestNumber = checkGuestNumber(adFormGuestNumber.value);
     return setGuestNumber(roomNumber, guestNumber);
   };
   setGuestNumbers();
