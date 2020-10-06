@@ -235,6 +235,7 @@
   mainPin.addEventListener(`click`, (evt) => {
     if (evt.button === MOUSE_MAIN_BUTTON) {
       activatePage();
+      closeCard();
     }
   });
 
