@@ -42,10 +42,10 @@
   initPinMainPosition();
 
   const setupAddress = () => {
+    const newPinCenterPositionX = Math.floor(mainPin.offsetLeft + MAIN_PIN_WIDTH / 2);
     const newPinPositionY = Math.floor(mainPin.offsetTop + MAIN_PIN_HEIGHT + PIN_TIP_HEIGHT);
-    mainPinLocation.value = `${pinCenterPositionX}, ${newPinPositionY}`;
+    mainPinLocation.value = `${newPinCenterPositionX}, ${newPinPositionY}`;
   };
-
   mainPinLocation.setAttribute(`readonly`, `true`);
 
   // Зависимость, цена за ночь от типа жилья
@@ -141,6 +141,9 @@
   });
 
   window.validation = {
+    MAIN_PIN_WIDTH,
+    MAIN_PIN_HEIGHT,
+    PIN_TIP_HEIGHT,
     setupAddress,
     adForm,
     mainPin,
