@@ -4,16 +4,16 @@
 
   const MOUSE_MAIN_BUTTON = 0;
 
-  const {map, mapFilterSelects, mapFilterInputs} = window.map;
-  const {setupAddress, adForm, mainPin} = window.form;
-  const {closeCard} = window.card;
-  const {getPins} = window.pin;
+  const {map, mapFilterSelects, mapFilterInputs} = window.cityPlan;
+  const {setupAddress, adForm, mainPin} = window.validation;
+  const {close} = window.card;
+  const {getPins} = window.marker;
   const {getPinsAd} = window.data;
 
-  const adFormSelects = adForm.querySelectorAll(`select`);
-  const adFormInputs = adForm.querySelectorAll(`input`);
-  const adFormTextarea = adForm.querySelector(`#description`);
-  const adFormSubmit = adForm.querySelector(`.ad-form__element--submit`);
+  const adSelects = adForm.querySelectorAll(`select`);
+  const adInputs = adForm.querySelectorAll(`input`);
+  const adTextarea = adForm.querySelector(`#description`);
+  const adSubmit = adForm.querySelector(`.ad-form__element--submit`);
 
   const setStatusDisabled = (elements) => {
     elements.forEach((element) => {
@@ -29,15 +29,15 @@
 
   setStatusDisabled(mapFilterSelects);
   setStatusDisabled(mapFilterInputs);
-  setStatusDisabled(adFormSelects);
-  setStatusDisabled(adFormInputs);
-  adFormTextarea.setAttribute(`disabled`, `true`);
-  adFormSubmit.setAttribute(`disabled`, `true`);
+  setStatusDisabled(adSelects);
+  setStatusDisabled(adInputs);
+  adTextarea.setAttribute(`disabled`, `true`);
+  adSubmit.setAttribute(`disabled`, `true`);
 
   const onMainPinClick = (evt) => {
     if (evt.button === MOUSE_MAIN_BUTTON) {
       activatePage();
-      closeCard();
+      close();
     }
   };
 
@@ -47,13 +47,13 @@
     adForm.classList.remove(`ad-form--disabled`);
     map.classList.remove(`map--faded`);
 
-    setStatusActive(adFormInputs);
-    setStatusActive(adFormSelects);
+    setStatusActive(adInputs);
+    setStatusActive(adSelects);
     setStatusActive(mapFilterSelects);
     setStatusActive(mapFilterInputs);
     setupAddress();
-    adFormTextarea.removeAttribute(`disabled`, `true`);
-    adFormSubmit.removeAttribute(`disabled`, `true`);
+    adTextarea.removeAttribute(`disabled`, `true`);
+    adSubmit.removeAttribute(`disabled`, `true`);
 
     const adMap = getPinsAd();
     const adMapPins = document.querySelector(`.map__pins`);

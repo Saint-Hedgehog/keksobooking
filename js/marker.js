@@ -2,7 +2,7 @@
 
 (() => {
 
-  const {openCard} = window.card;
+  const {open} = window.card;
 
   // Находим шаблон для отрисовки пина на карте и заполняем его
   const getPins = (data) => {
@@ -17,14 +17,14 @@
       img.alt = pinData.offer.title;
       fragment.append(elem);
       elem.addEventListener(`click`, () => {
-        openCard(pinData);
+        open(pinData);
       });
     });
 
     return fragment;
   };
 
-  window.pin = {
+  window.marker = {
     getPins,
   };
 

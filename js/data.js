@@ -4,7 +4,7 @@
 
   const MAP_PINS = 8;
 
-  const {map} = window.map;
+  const {map} = window.cityPlan;
 
   // Получение случайного целого числа в заданном интервале между min и max (максимум, минимум включается)
   const getRandomNubmer = (min, max) => Math.floor(Math.random() * (max - min + 1) + min);

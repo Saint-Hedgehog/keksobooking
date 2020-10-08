@@ -2,16 +2,16 @@
 
 (() => {
 
-  const isEscEvent = (evt, action) => {
+  const isEscEvent = (evt, callback) => {
     if (evt.key === `Escape`) {
       evt.preventDefault();
-      action();
+      callback();
     }
   };
 
-  const isEnterEvent = (evt, action) => {
+  const isEnterEvent = (evt, callback) => {
     if (evt.key === `Enter`) {
-      action();
+      callback();
     }
   };
 

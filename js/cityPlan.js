@@ -7,7 +7,7 @@
   const mapFilterSelects = mapFilter.querySelectorAll(`select`);
   const mapFilterInputs = mapFilter.querySelectorAll(`input`);
 
-  window.map = {
+  window.cityPlan = {
     map,
     mapFilterSelects,
     mapFilterInputs,

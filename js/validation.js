@@ -116,7 +116,7 @@
   // Зависимость кол-ва гостей от кол-ва комнат
   const adFormRoomNumber = adForm.querySelector(`#room_number`);
   const adFormGuestNumber = adForm.querySelector(`#capacity`);
-  // --------------
+
   const capacityValidValues = {
     '1': [`1`],
     '2': [`1`, `2`],
@@ -128,11 +128,7 @@
     let rooms = adFormRoomNumber.value;
     let options = adFormGuestNumber.querySelectorAll(`option`);
     options.forEach((option) => {
-      if (capacityValidValues[rooms].indexOf(option.value) === -1) {
-        option.disabled = true;
-      } else {
-        option.disabled = false;
-      }
+      option.disabled = capacityValidValues[rooms].indexOf(option.value) === -1;
     });
     if (options[adFormGuestNumber.selectedIndex].disabled) {
       adFormGuestNumber.querySelector(`option:not([disabled])`).selected = true;
@@ -144,7 +140,7 @@
     setFormCapacity();
   });
 
-  window.form = {
+  window.validation = {
     setupAddress,
     adForm,
     mainPin,

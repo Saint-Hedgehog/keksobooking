@@ -2,8 +2,15 @@
 
 (() => {
 
+  const Housing = {
+    FLAT: `flat`,
+    BUNGALOW: `bungalow`,
+    HOUSE: `house`,
+    PALACE: `palace`,
+  };
+
   const {isEscEvent} = window.util;
-  const {map} = window.map;
+  const {map} = window.cityPlan;
 
   const generateFeatures = (featuresCard, cardFragment) => {
     featuresCard.forEach((feature) => {
@@ -20,9 +27,9 @@
     const cardFragment = document.createDocumentFragment();
     const {title, address, price, rooms, guests, checkin, checkout, description, photos, features, type} = data.offer; // Деструктуризация
     const {avatar} = data.author;
-    const closeCardButton = cardElement.querySelector(`.popup__close`);
-    closeCardButton.addEventListener(`click`, () => {
-      closeCard();
+    const closeButton = cardElement.querySelector(`.popup__close`);
+    closeButton.addEventListener(`click`, () => {
+      close();
     });
 
     // В список .popup__features вводим все доступные удобства
@@ -46,12 +53,6 @@
 
     // В блок .popup__type вводим тип жилья
     const cardType = cardElement.querySelector(`.popup__type`);
-    const Housing = {
-      FLAT: `flat`,
-      BUNGALOW: `bungalow`,
-      HOUSE: `house`,
-      PALACE: `palace`,
-    };
 
     switch (type) {
       case (Housing.FLAT):
@@ -116,27 +117,27 @@
     return cardElement;
   };
 
-  const openCard = (pinData) => {
-    closeCard();
+  const open = (pinData) => {
+    close();
     getCard(pinData);
-    document.addEventListener(`keydown`, onMapCardEscPress);
+    document.addEventListener(`keydown`, onMapEscPress);
   };
 
-  const onMapCardEscPress = (evt) => {
-    isEscEvent(evt, closeCard);
+  const onMapEscPress = (evt) => {
+    isEscEvent(evt, close);
   };
 
-  const closeCard = () => {
+  const close = () => {
     const card = map.querySelector(`.map__card`);
     if (card) {
       card.remove();
+      document.removeEventListener(`keydown`, onMapEscPress);
     }
-    document.removeEventListener(`keydown`, onMapCardEscPress);
   };
 
   window.card = {
-    openCard,
-    closeCard,
+    open,
+    close,
   };
 
 })();
