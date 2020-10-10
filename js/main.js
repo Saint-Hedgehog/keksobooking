@@ -9,7 +9,7 @@
   const {close} = window.card;
   const {getPins} = window.marker;
   const {getPinsAd} = window.data;
-  const {onMainPinMouseMove} = window.move;
+  const {onMainPinMouseMove} = window.shift;
 
   const adSelects = adForm.querySelectorAll(`select`);
   const adInputs = adForm.querySelectorAll(`input`);
@@ -42,7 +42,7 @@
     }
   };
 
-  mainPin.addEventListener(`click`, onMainPinClick);
+  mainPin.addEventListener(`mousedown`, onMainPinClick);
 
   const activatePage = () => {
     adForm.classList.remove(`ad-form--disabled`);
@@ -59,7 +59,7 @@
     const adMap = getPinsAd();
     const adMapPins = document.querySelector(`.map__pins`);
     adMapPins.append(getPins(adMap));
-    mainPin.removeEventListener(`click`, onMainPinClick);
+    mainPin.removeEventListener(`mousedown`, onMainPinClick);
     mainPin.addEventListener(`mousedown`, onMainPinMouseMove);
   };
 

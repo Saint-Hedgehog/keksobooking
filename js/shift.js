@@ -74,7 +74,7 @@
     document.addEventListener(`mouseup`, onMouseUp);
   };
 
-  window.move = {
+  window.shift = {
     onMainPinMouseMove,
   };
 
