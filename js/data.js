@@ -14,8 +14,8 @@
 
   // Получение случайных координат адресса
   const getLocation = () => {
-    const locationX = Math.floor(Math.random() * (1000 - 1) + 1); // 600
-    const locationY = Math.floor(Math.random() * (1000 - 1) + 1); // 350
+    const locationX = Math.floor(Math.random() * (1000 - 1) + 1);
+    const locationY = Math.floor(Math.random() * (1000 - 1) + 1);
     return `${locationX}, ${locationY}`;
   };
 
