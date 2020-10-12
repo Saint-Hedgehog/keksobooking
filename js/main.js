@@ -4,11 +4,11 @@
 
   const MOUSE_MAIN_BUTTON = 0;
 
-  const {map, mapFilterSelects, mapFilterInputs} = window.cityPlan;
+  const {map, mapFilterSelects, mapFilterInputs, onError} = window.cityPlan;
   const {setupAddress, adForm, mainPin} = window.validation;
   const {close} = window.card;
   const {getPins} = window.marker;
-  const {getPinsAd} = window.data;
+  const {load} = window.backend;
   const {onMainPinMouseMove} = window.shift;
 
   const adSelects = adForm.querySelectorAll(`select`);
@@ -56,9 +56,12 @@
     adTextarea.removeAttribute(`disabled`, `true`);
     adSubmit.removeAttribute(`disabled`, `true`);
 
-    const adMap = getPinsAd();
-    const adMapPins = document.querySelector(`.map__pins`);
-    adMapPins.append(getPins(adMap));
+    const onLoad = (data) => {
+      const adMapPins = document.querySelector(`.map__pins`);
+      adMapPins.append(getPins(data));
+    };
+    load(onLoad, onError);
+
     mainPin.removeEventListener(`mousedown`, onMainPinClick);
     mainPin.addEventListener(`mousedown`, onMainPinMouseMove);
   };

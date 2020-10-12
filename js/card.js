@@ -92,7 +92,7 @@
     };
 
     const guestEnding = (guestsEnding) => {
-      const lastDigit = guestsEnding;
+      let lastDigit = guestsEnding;
       if (guestsEnding >= 10) {
         lastDigit = guestsEnding % 10;
       }
