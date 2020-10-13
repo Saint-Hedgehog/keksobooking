@@ -18,7 +18,7 @@
   };
 
 
-  const onMainPinMouseMove = (evt) => {
+  const onMainPinSetAdressMouseMove = (evt) => {
     evt.preventDefault();
 
     let startCoords = {
@@ -75,7 +75,7 @@
   };
 
   window.shift = {
-    onMainPinMouseMove,
+    onMainPinSetAdressMouseMove,
   };
 
 })();

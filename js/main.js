@@ -11,7 +11,7 @@
   const {close} = window.card;
   const {getPins} = window.marker;
   const {load, save} = window.backend;
-  const {onMainPinMouseMove} = window.shift;
+  const {onMainPinSetAdressMouseMove} = window.shift;
   const {isEscEvent} = window.util;
 
   const adSelects = adForm.querySelectorAll(`select`);
@@ -38,14 +38,14 @@
   adTextarea.setAttribute(`disabled`, `true`);
   adSubmit.setAttribute(`disabled`, `true`);
 
-  const onMainPinClick = (evt) => {
+  const onMainPinActivateMouseDown = (evt) => {
     if (evt.button === MOUSE_MAIN_BUTTON) {
       activatePage();
-      close();
     }
   };
 
-  mainPin.addEventListener(`mousedown`, onMainPinClick);
+  mainPin.addEventListener(`mousedown`, onMainPinActivateMouseDown);
+  mainPin.addEventListener(`mousedown`, onMainPinSetAdressMouseMove);
 
   // Сообщение удачного отправления формы
   const successTemplate = document.querySelector(`#success`).content.querySelector(`.success`);
@@ -108,17 +108,16 @@
 
   const buttonReset = document.querySelector(`.ad-form__reset`);
   const resetForm = () => {
-    adForm.reset();
+    deactivatePage();
   };
 
   const deactivatePage = () => {
-    map.classList.add(`map--faded`);
-    adForm.classList.add(`ad-form--disabled`);
-    adForm.reset();
     close();
     removePins();
+    adForm.reset();
+    map.classList.add(`map--faded`);
+    adForm.classList.add(`ad-form--disabled`);
     setupAddress();
-
     mainPin.style.left = `${MAIN_PIN_START_X}px`;
     mainPin.style.top = `${MAIN_PIN_START_Y}px`;
     initMainPinPosition();
@@ -129,8 +128,7 @@
     adTextarea.setAttribute(`disabled`, `true`);
     adSubmit.setAttribute(`disabled`, `true`);
 
-    mainPin.addEventListener(`mousedown`, onMainPinClick);
-    mainPin.removeEventListener(`mousedown`, onMainPinMouseMove);
+    mainPin.addEventListener(`mousedown`, onMainPinActivateMouseDown);
     buttonReset.removeEventListener(`click`, resetForm);
   };
 
@@ -146,22 +144,22 @@
     adTextarea.removeAttribute(`disabled`, `true`);
     adSubmit.removeAttribute(`disabled`, `true`);
 
-    const onLoad = (data) => {
+    load((data) => {
       const adMapPins = document.querySelector(`.map__pins`);
       adMapPins.append(getPins(data));
-    };
-    load(onLoad, onError);
+    }, onError);
 
     adForm.addEventListener(`submit`, (evt) => {
-      save(new FormData(adForm), () => {
+      const data = new FormData(adForm);
+      const onLoad = () => {
         deactivatePage();
         showSuccessMessage();
-      }, showErrorMessage);
+      };
+      save(data, onLoad, showErrorMessage);
       evt.preventDefault();
     });
 
-    mainPin.removeEventListener(`mousedown`, onMainPinClick);
-    mainPin.addEventListener(`mousedown`, onMainPinMouseMove);
+    mainPin.removeEventListener(`mousedown`, onMainPinActivateMouseDown);
 
     buttonReset.addEventListener(`click`, resetForm);
   };
