@@ -53,15 +53,15 @@
   const showSuccessMessage = () => {
     map.appendChild(success);
 
-    document.addEventListener(`click`, bannerClickHendler);
-    document.addEventListener(`keydown`, bannerKeyDownHendler);
+    document.addEventListener(`click`, onBannerClick);
+    document.addEventListener(`keydown`, onBannerKeyDown);
   };
 
-  const bannerClickHendler = () => {
+  const onBannerClick = () => {
     closeBanner();
   };
 
-  const bannerKeyDownHendler = (evt) => {
+  const onBannerKeyDown = (evt) => {
     isEscEvent(evt, closeBanner);
   };
 
@@ -69,8 +69,8 @@
     const messageSuccess = document.querySelector(`.success`);
     messageSuccess.remove();
 
-    document.removeEventListener(`click`, bannerClickHendler);
-    document.removeEventListener(`keydown`, bannerKeyDownHendler);
+    document.removeEventListener(`click`, onBannerClick);
+    document.removeEventListener(`keydown`, onBannerKeyDown);
   };
 
   // Сообщение об ошибке
@@ -79,15 +79,15 @@
   const showErrorMessage = () => {
     map.appendChild(error);
 
-    document.addEventListener(`click`, bannerErrorClickHendler);
-    document.addEventListener(`keydown`, bannerErrorKeyDownHendler);
+    document.addEventListener(`click`, onBannerErrorClick);
+    document.addEventListener(`keydown`, onBannerErrorKeyDown);
   };
 
-  const bannerErrorClickHendler = () => {
+  const onBannerErrorClick = () => {
     closeBannerError();
   };
 
-  const bannerErrorKeyDownHendler = (evt) => {
+  const onBannerErrorKeyDown = (evt) => {
     isEscEvent(evt, closeBannerError);
   };
 
@@ -95,8 +95,8 @@
     const message = document.querySelector(`.error`);
     message.remove();
 
-    document.removeEventListener(`click`, bannerErrorClickHendler);
-    document.removeEventListener(`keydown`, bannerErrorKeyDownHendler);
+    document.removeEventListener(`click`, onBannerErrorClick);
+    document.removeEventListener(`keydown`, onBannerErrorKeyDown);
   };
 
   const removePins = () => {
