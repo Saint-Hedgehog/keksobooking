@@ -36,10 +36,10 @@
   const pinCenterPositionY = Math.floor(mainPin.offsetTop + MAIN_PIN_HEIGHT / 2);
   const mainPinLocation = adForm.querySelector(`#address`);
 
-  const initPinMainPosition = () => {
+  const initMainPinPosition = () => {
     mainPinLocation.value = `${pinCenterPositionX}, ${pinCenterPositionY}`;
   };
-  initPinMainPosition();
+  initMainPinPosition();
 
   const setupAddress = () => {
     const newPinCenterPositionX = Math.floor(mainPin.offsetLeft + MAIN_PIN_WIDTH / 2);
@@ -147,6 +147,7 @@
     setupAddress,
     adForm,
     mainPin,
+    initMainPinPosition,
   };
 
 })();
