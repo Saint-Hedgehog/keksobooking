@@ -7,6 +7,12 @@
   const mapFilterSelects = mapFilter.querySelectorAll(`select`);
   const mapFilterInputs = mapFilter.querySelectorAll(`input`);
 
+  const setStatusDisabled = (elements) => {
+    elements.forEach((element) => {
+      element.setAttribute(`disabled`, `true`);
+    });
+  };
+
   // ошибка при получении или отправке данных
   const onError = (errorMessage) => {
     const error = document.createElement(`div`);
@@ -27,6 +33,8 @@
     error.addEventListener(`click`, () => {
       error.remove();
     });
+    setStatusDisabled(mapFilterSelects);
+    setStatusDisabled(mapFilterInputs);
   };
 
   window.cityPlan = {

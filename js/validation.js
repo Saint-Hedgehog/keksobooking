@@ -51,18 +51,19 @@
   // Зависимость, цена за ночь от типа жилья
   const inputPrice = adForm.querySelector(`#price`);
 
+  // Меняется значение inputPrice.min и inputPrice.max при валидации
+  const getValidityListMap = () => ({
+    valueMissing: `Обязательное поле`,
+    badInput: `Пожалуйста, введите число`,
+    rangeUnderflow: `Пожалуйста, не меньше ${inputPrice.min}`,
+    rangeOverflow: `Пожалуйста, не больше ${inputPrice.max}`
+  });
   const validationPrice = () => {
-    if (inputPrice.validity.valueMissing) {
-      inputPrice.setCustomValidity(`Обязательное поле`);
-    } else if (inputPrice.validity.badInput) {
-      inputPrice.setCustomValidity(`Пожалуйста, введите число`);
-    } else if (inputPrice.validity.rangeUnderflow) {
-      inputPrice.setCustomValidity(`Пожалуйста, не меньше ${inputPrice.min}`);
-    } else if (inputPrice.validity.rangeOverflow) {
-      inputPrice.setCustomValidity(`Пожалуйста, не больше ${inputPrice.max}`);
-    } else {
-      inputPrice.setCustomValidity(``);
-    }
+    const validityListMap = getValidityListMap();
+    const errorKey = Object.keys(validityListMap).find(function (key) {
+      return inputPrice.validity[key];
+    });
+    inputPrice.setCustomValidity(errorKey ? validityListMap[errorKey] : ``);
   };
 
   inputPrice.addEventListener(`invalid`, () => {
@@ -91,7 +92,6 @@
   setMinPrice(minPrice);
 
   selectType.addEventListener(`change`, () => {
-    inputPrice.value = ``;
     minPrice = mapTypeToPrice[selectType.value];
     setMinPrice(minPrice);
   });
