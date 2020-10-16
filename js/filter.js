@@ -4,6 +4,7 @@
   const PIN_COUNT = 5;
   const {getPins} = window.marker;
   const {map} = window.cityPlan;
+  const {close} = window.card;
 
   const removePins = () => {
     const currentPins = map.querySelectorAll(`.map__pin:not(.map__pin--main)`);
@@ -29,7 +30,6 @@
   let housingTypeValue = ``;
   const ANY_HOUSING = `any`;
   housingType.addEventListener(`change`, () => {
-    close();
     housingTypeValue = housingType.value;
     let newAds = [];
     ads.forEach((itemAd) => {
@@ -37,6 +37,7 @@
         newAds.push(itemAd);
       }
     });
+    close();
     updateAds(newAds);
   });
 

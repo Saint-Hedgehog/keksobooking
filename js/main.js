@@ -150,7 +150,6 @@
     });
 
     mainPin.removeEventListener(`mousedown`, onMainPinActivateMouseDown);
-
     buttonReset.addEventListener(`click`, resetForm);
   };
 
