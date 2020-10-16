@@ -2,7 +2,7 @@
 
 (() => {
 
-  const statusCode = {
+  const StatusCode = {
     OK: 200
   };
   const TIMEOUT_IN_MS = 3000;
@@ -20,7 +20,7 @@
     xhr.send(data);
 
     xhr.addEventListener(`load`, () => {
-      if (xhr.status === statusCode.OK) {
+      if (xhr.status === StatusCode.OK) {
         onLoad(xhr.response);
       } else {
         onError(`Статус ответа: ${xhr.status} ${xhr.statusText}`);

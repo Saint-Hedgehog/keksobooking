@@ -9,10 +9,11 @@
   const {map, mapFilterSelects, mapFilterInputs, onError} = window.cityPlan;
   const {setupAddress, adForm, mainPin, initMainPinPosition} = window.validation;
   const {close} = window.card;
-  const {getPins} = window.marker;
+
   const {load, save} = window.backend;
   const {onMainPinSetAdressMouseMove} = window.shift;
   const {isEscEvent} = window.util;
+  const {onLoad, removePins} = window.filter;
 
   const adSelects = adForm.querySelectorAll(`select`);
   const adInputs = adForm.querySelectorAll(`input`);
@@ -53,7 +54,7 @@
   const showSuccessMessage = () => {
     map.appendChild(success);
 
-    document.addEventListener(`click`, onBannerClick);
+    success.addEventListener(`click`, onBannerClick);
     document.addEventListener(`keydown`, onBannerKeyDown);
   };
 
@@ -66,10 +67,9 @@
   };
 
   const closeBanner = () => {
-    const messageSuccess = document.querySelector(`.success`);
-    messageSuccess.remove();
+    success.remove();
 
-    document.removeEventListener(`click`, onBannerClick);
+    success.removeEventListener(`click`, onBannerClick);
     document.removeEventListener(`keydown`, onBannerKeyDown);
   };
 
@@ -79,7 +79,7 @@
   const showErrorMessage = () => {
     map.appendChild(error);
 
-    document.addEventListener(`click`, onBannerErrorClick);
+    error.addEventListener(`click`, onBannerErrorClick);
     document.addEventListener(`keydown`, onBannerErrorKeyDown);
   };
 
@@ -92,22 +92,15 @@
   };
 
   const closeBannerError = () => {
-    const message = document.querySelector(`.error`);
-    message.remove();
+    error.remove();
 
-    document.removeEventListener(`click`, onBannerErrorClick);
+    error.removeEventListener(`click`, onBannerErrorClick);
     document.removeEventListener(`keydown`, onBannerErrorKeyDown);
   };
 
-  const removePins = () => {
-    const currentPins = map.querySelectorAll(`.map__pin:not(.map__pin--main)`);
-    currentPins.forEach(function (currentPin) {
-      currentPin.remove();
-    });
-  };
-
   const buttonReset = document.querySelector(`.ad-form__reset`);
-  const resetForm = () => {
+  const resetForm = (evt) => {
+    evt.preventDefault();
     deactivatePage();
   };
 
@@ -144,19 +137,16 @@
     adTextarea.removeAttribute(`disabled`, `true`);
     adSubmit.removeAttribute(`disabled`, `true`);
 
-    load((data) => {
-      const adMapPins = document.querySelector(`.map__pins`);
-      adMapPins.append(getPins(data));
-    }, onError);
+    load(onLoad, onError);
 
     adForm.addEventListener(`submit`, (evt) => {
+      evt.preventDefault();
       const data = new FormData(adForm);
-      const onLoad = () => {
+      save(data, () => {
         deactivatePage();
         showSuccessMessage();
-      };
-      save(data, onLoad, showErrorMessage);
-      evt.preventDefault();
+      }, showErrorMessage);
+      document.activeElement.blur();
     });
 
     mainPin.removeEventListener(`mousedown`, onMainPinActivateMouseDown);
