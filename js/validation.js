@@ -15,7 +15,7 @@
   let minTitleLength = inputTitle.minLength;
   let maxTitleLengtn = inputTitle.maxLength;
 
-  inputTitle.addEventListener(`input`, () => {
+  const onInputTitleSetCustomValidity = () => {
     let valueLength = inputTitle.value.length;
 
     if (valueLength < minTitleLength) {
@@ -26,12 +26,11 @@
       inputTitle.setCustomValidity(``);
     }
     inputTitle.reportValidity();
-  });
+  };
 
   // Заполнение поля адреса
   const mapPins = document.querySelector(`.map__pins`);
   const mainPin = mapPins.querySelector(`.map__pin--main`);
-
   const pinCenterPositionX = Math.floor(mainPin.offsetLeft + MAIN_PIN_WIDTH / 2);
   const pinCenterPositionY = Math.floor(mainPin.offsetTop + MAIN_PIN_HEIGHT / 2);
   const mainPinLocation = adForm.querySelector(`#address`);
@@ -51,7 +50,6 @@
   // Зависимость, цена за ночь от типа жилья
   const inputPrice = adForm.querySelector(`#price`);
 
-  // Меняется значение inputPrice.min и inputPrice.max при валидации
   const getValidityListMap = () => ({
     valueMissing: `Обязательное поле`,
     badInput: `Пожалуйста, введите число`,
@@ -60,19 +58,17 @@
   });
   const validationPrice = () => {
     const validityListMap = getValidityListMap();
-    const errorKey = Object.keys(validityListMap).find(function (key) {
-      return inputPrice.validity[key];
-    });
+    const errorKey = Object.keys(validityListMap).find((key) => inputPrice.validity[key]);
     inputPrice.setCustomValidity(errorKey ? validityListMap[errorKey] : ``);
   };
 
-  inputPrice.addEventListener(`invalid`, () => {
+  const onInputPriceCheckValidity = () => {
     validationPrice();
+  };
 
-  });
-  inputPrice.addEventListener(`input`, () => {
+  const onInputPriceSetCustomValidity = () => {
     validationPrice();
-  });
+  };
 
   const mapTypeToPrice = {
     bungalow: 0,
@@ -91,10 +87,10 @@
   let minPrice = mapTypeToPrice[selectType.value];
   setMinPrice(minPrice);
 
-  selectType.addEventListener(`change`, () => {
+  const onSelectTypeChange = () => {
     minPrice = mapTypeToPrice[selectType.value];
     setMinPrice(minPrice);
-  });
+  };
 
   // Зависимость времени заезда от время выезда
   const selectCheckIn = adForm.querySelector(`#timein`);
@@ -106,12 +102,13 @@
   const changeCheckOut = (checkOut) => {
     selectCheckOut.value = checkOut;
   };
-  selectCheckIn.addEventListener(`change`, () => {
+  const onSelectCheckInChange = () => {
     changeCheckOut(selectCheckIn.value);
-  });
-  selectCheckOut.addEventListener(`change`, () => {
+  };
+
+  const onSelectCheckOutChange = () => {
     changeCheckIn(selectCheckOut.value);
-  });
+  };
 
   // Зависимость кол-ва гостей от кол-ва комнат
   const adFormRoomNumber = adForm.querySelector(`#room_number`);
@@ -136,9 +133,9 @@
   };
   setFormCapacity();
 
-  adFormRoomNumber.addEventListener(`change`, () => {
+  const onAdFormRoomNumberChange = () => {
     setFormCapacity();
-  });
+  };
 
   window.validation = {
     MAIN_PIN_WIDTH,
@@ -146,8 +143,22 @@
     PIN_TIP_HEIGHT,
     setupAddress,
     adForm,
+    mapPins,
     mainPin,
     initMainPinPosition,
+    inputTitle,
+    onInputTitleSetCustomValidity,
+    inputPrice,
+    onInputPriceCheckValidity,
+    onInputPriceSetCustomValidity,
+    selectType,
+    onSelectTypeChange,
+    selectCheckIn,
+    onSelectCheckInChange,
+    selectCheckOut,
+    onSelectCheckOutChange,
+    adFormRoomNumber,
+    onAdFormRoomNumberChange,
   };
 
 })();
