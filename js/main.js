@@ -7,13 +7,15 @@
   const MAIN_PIN_START_Y = 375;
 
   const {map, mapFilterSelects, mapFilterInputs, onError} = window.cityPlan;
-  const {setupAddress, adForm, mainPin, initMainPinPosition} = window.validation;
+  const {setupAddress, adForm, mainPin, initMainPinPosition, inputTitle, onInputTitleSetCustomValidity,
+    inputPrice, onInputPriceCheckValidity, onInputPriceSetCustomValidity, selectType, onSelectTypeChange,
+    selectCheckIn, onSelectCheckInChange, selectCheckOut, onSelectCheckOutChange, adFormRoomNumber,
+    onAdFormRoomNumberChange} = window.validation;
   const {close} = window.card;
-
   const {load, save} = window.backend;
   const {onMainPinSetAdressMouseMove} = window.shift;
   const {isEscEvent} = window.util;
-  const {onLoad, removePins} = window.filter;
+  const {onLoad, removePins, filterForm, onFiltersSetNewAds} = window.filter;
 
   const adSelects = adForm.querySelectorAll(`select`);
   const adInputs = adForm.querySelectorAll(`input`);
@@ -114,6 +116,7 @@
     mainPin.style.left = `${MAIN_PIN_START_X}px`;
     mainPin.style.top = `${MAIN_PIN_START_Y}px`;
     initMainPinPosition();
+
     setStatusDisabled(mapFilterSelects);
     setStatusDisabled(mapFilterInputs);
     setStatusDisabled(adSelects);
@@ -123,6 +126,15 @@
 
     mainPin.addEventListener(`mousedown`, onMainPinActivateMouseDown);
     buttonReset.removeEventListener(`click`, resetForm);
+
+    filterForm.removeEventListener(`change`, onFiltersSetNewAds);
+    inputTitle.removeEventListener(`input`, onInputTitleSetCustomValidity);
+    inputPrice.removeEventListener(`invalid`, onInputPriceCheckValidity);
+    inputPrice.removeEventListener(`input`, onInputPriceSetCustomValidity);
+    selectType.removeEventListener(`change`, onSelectTypeChange);
+    selectCheckIn.removeEventListener(`change`, onSelectCheckInChange);
+    selectCheckOut.removeEventListener(`change`, onSelectCheckOutChange);
+    adFormRoomNumber.removeEventListener(`change`, onAdFormRoomNumberChange);
   };
 
   const activatePage = () => {
@@ -151,6 +163,15 @@
 
     mainPin.removeEventListener(`mousedown`, onMainPinActivateMouseDown);
     buttonReset.addEventListener(`click`, resetForm);
+
+    filterForm.addEventListener(`change`, onFiltersSetNewAds);
+    inputTitle.addEventListener(`input`, onInputTitleSetCustomValidity);
+    inputPrice.addEventListener(`invalid`, onInputPriceCheckValidity);
+    inputPrice.addEventListener(`input`, onInputPriceSetCustomValidity);
+    selectType.addEventListener(`change`, onSelectTypeChange);
+    selectCheckIn.addEventListener(`change`, onSelectCheckInChange);
+    selectCheckOut.addEventListener(`change`, onSelectCheckOutChange);
+    adFormRoomNumber.addEventListener(`change`, onAdFormRoomNumberChange);
   };
 
 })();

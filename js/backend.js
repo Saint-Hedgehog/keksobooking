@@ -5,7 +5,7 @@
   const StatusCode = {
     OK: 200
   };
-  const TIMEOUT_IN_MS = 3000;
+  const TIMEOUT_IN_MS = 5000;
   const URL_TO_GET = `https://21.javascript.pages.academy/keksobooking/data`;
   const URL_TO_POST = `https://21.javascript.pages.academy/keksobooking`;
   const GET = `GET`;
