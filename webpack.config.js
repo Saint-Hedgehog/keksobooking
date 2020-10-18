@@ -18,5 +18,9 @@ module.exports = {
     path: path.resolve(__dirname),
     iife: true
   },
-  devtool: false
+  devtool: false,
+  devServer: {
+    contentBase: path.join(__dirname),
+    port: 9000
+  }
 };

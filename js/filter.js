@@ -39,10 +39,12 @@ const removePins = () => {
   });
 };
 
-const updateAds = window.debounce((data) => {
+const updateAds = (data) => {
   removePins();
   mapPins.append(getPins(data.slice(0, PIN_COUNT)));
-});
+};
+
+const updateDebouncedAds = window.debounce(updateAds);
 
 const onFiltersSetNewAds = () => {
   let newAds = [];
@@ -58,7 +60,7 @@ const onFiltersSetNewAds = () => {
   });
 
   closePopap();
-  updateAds(newAds);
+  updateDebouncedAds(newAds);
 };
 
 const filterHousingType = (ad) => housingType.value === ad.offer.type
