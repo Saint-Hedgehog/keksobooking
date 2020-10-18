@@ -15,8 +15,8 @@ module.exports = {
   ],
   output: {
     filename: "bundle.js",
-    path: path.resolve(__dirname, "js"),
-    iife: true //поставить true когда удалю iife в проекте
+    path: path.resolve(__dirname),
+    iife: true
   },
   devtool: false
 };
