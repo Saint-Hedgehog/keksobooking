@@ -1,6 +1,6 @@
 'use strict';
 
-const {open} = window.card;
+const {openPopap} = window.card;
 
 // Находим шаблон для отрисовки пина на карте и заполняем его
 const getPins = (data) => {
@@ -15,7 +15,7 @@ const getPins = (data) => {
     img.alt = pinData.offer.title;
     fragment.append(elem);
     elem.addEventListener(`click`, () => {
-      open(pinData);
+      openPopap(pinData);
     });
   });
 

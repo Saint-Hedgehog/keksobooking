@@ -27,7 +27,7 @@ const getCard = (data) => {
   const {avatar} = data.author;
   const closeButton = cardElement.querySelector(`.popup__close`);
   closeButton.addEventListener(`click`, () => {
-    close();
+    closePopap();
   });
 
   // В список .popup__features вводим все доступные удобства
@@ -115,17 +115,17 @@ const getCard = (data) => {
   return cardElement;
 };
 
-const open = (pinData) => {
-  close();
+const openPopap = (pinData) => {
+  closePopap();
   getCard(pinData);
   document.addEventListener(`keydown`, onMapEscPress);
 };
 
 const onMapEscPress = (evt) => {
-  isEscEvent(evt, close);
+  isEscEvent(evt, closePopap);
 };
 
-const close = () => {
+const closePopap = () => {
   const card = map.querySelector(`.map__card`);
   if (card) {
     card.remove();
@@ -134,6 +134,6 @@ const close = () => {
 };
 
 window.card = {
-  open,
-  close,
+  openPopap,
+  closePopap,
 };

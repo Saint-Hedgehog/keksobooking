@@ -9,7 +9,7 @@ const {setupAddress, adForm, mainPin, initMainPinPosition, inputTitle, onInputTi
   inputPrice, onInputPriceCheckValidity, onInputPriceSetCustomValidity, selectType, onSelectTypeChange,
   selectCheckIn, onSelectCheckInChange, selectCheckOut, onSelectCheckOutChange, adFormRoomNumber,
   onAdFormRoomNumberChange} = window.validation;
-const {close} = window.card;
+const {closePopap} = window.card;
 const {load, save} = window.backend;
 const {onMainPinSetAdressMouseMove} = window.shift;
 const {isEscEvent} = window.util;
@@ -105,7 +105,7 @@ const onFormReset = (evt) => {
 };
 
 const deactivatePage = () => {
-  close();
+  closePopap();
   removePins();
   adForm.reset();
   map.classList.add(`map--faded`);
