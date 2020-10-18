@@ -18,7 +18,7 @@ const {onLoad, removePins, filterForm, onFiltersSetNewAds} = window.filter;
 const adSelects = adForm.querySelectorAll(`select`);
 const adInputs = adForm.querySelectorAll(`input`);
 const adTextarea = adForm.querySelector(`#description`);
-const adSubmit = adForm.querySelector(`.ad-form__element--submit`);
+const adSubmit = adForm.querySelector(`.ad-form__submit`);
 
 const setStatusDisabled = (elements) => {
   elements.forEach((element) => {
@@ -104,6 +104,17 @@ const onFormReset = (evt) => {
   deactivatePage();
 };
 
+const onAdFormSubmit = (evt) => {
+  evt.preventDefault();
+  adSubmit.setAttribute(`disabled`, `true`);
+  const data = new FormData(adForm);
+  save(data, () => {
+    deactivatePage();
+    showSuccessMessage();
+  }, showErrorMessage);
+  document.activeElement.blur();
+};
+
 const deactivatePage = () => {
   closePopap();
   removePins();
@@ -121,6 +132,8 @@ const deactivatePage = () => {
   setStatusDisabled(adInputs);
   adTextarea.setAttribute(`disabled`, `true`);
   adSubmit.setAttribute(`disabled`, `true`);
+
+  adForm.removeEventListener(`submit`, onAdFormSubmit);
 
   mainPin.addEventListener(`mousedown`, onMainPinActivateMouseDown);
   buttonReset.removeEventListener(`click`, onFormReset);
@@ -151,15 +164,7 @@ const activatePage = () => {
 
   load(onLoad, onError);
 
-  adForm.addEventListener(`submit`, (evt) => {
-    evt.preventDefault();
-    const data = new FormData(adForm);
-    save(data, () => {
-      deactivatePage();
-      showSuccessMessage();
-    }, showErrorMessage);
-    document.activeElement.blur();
-  });
+  adForm.addEventListener(`submit`, onAdFormSubmit);
 
   mainPin.removeEventListener(`mousedown`, onMainPinActivateMouseDown);
   buttonReset.addEventListener(`click`, onFormReset);
