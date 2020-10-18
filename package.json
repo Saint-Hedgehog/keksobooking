@@ -20,7 +20,7 @@
   "dependencies": {},
   "scripts": {
     "test": "eslint js/",
-    "build": "webpack",
+    "build": "webpack --mode production",
     "start": "webpack --watch"
   },
   "engines": {
