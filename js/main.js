@@ -14,6 +14,7 @@ const {load, save} = window.backend;
 const {onMainPinSetAdressMouseMove} = window.shift;
 const {isEscEvent} = window.util;
 const {onLoad, removePins, filterForm, onFiltersSetNewAds} = window.filter;
+const {setDisabled, setEnabled} = window.imageUpload;
 
 const adSelects = adForm.querySelectorAll(`select`);
 const adInputs = adForm.querySelectorAll(`input`);
@@ -151,7 +152,7 @@ const deactivatePage = () => {
   selectCheckOut.removeEventListener(`change`, onSelectCheckOutChange);
   adFormRoomNumber.removeEventListener(`change`, onAdFormRoomNumberChange);
 
-  window.imageUpload.setDisabled();
+  setDisabled();
 };
 
 const activatePage = () => {
@@ -183,5 +184,5 @@ const activatePage = () => {
   selectCheckOut.addEventListener(`change`, onSelectCheckOutChange);
   adFormRoomNumber.addEventListener(`change`, onAdFormRoomNumberChange);
 
-  window.imageUpload.setEnabled();
+  setEnabled();
 };
