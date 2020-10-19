@@ -27,7 +27,7 @@ const getCard = (data) => {
   const {avatar} = data.author;
   const closeButton = cardElement.querySelector(`.popup__close`);
   closeButton.addEventListener(`click`, () => {
-    closePopap();
+    closePopup();
   });
 
   // В список .popup__features вводим все доступные удобства
@@ -85,8 +85,7 @@ const getCard = (data) => {
       8: ``,
       9: ``,
     };
-    let result = (roomsEnding >= 5 && roomsEnding <= 20) ? `` : ending[lastDigit];
-    return result;
+    return (roomsEnding >= 5 && roomsEnding <= 20) ? `` : ending[lastDigit];
   };
 
   const guestEnding = (guestsEnding) => {
@@ -94,8 +93,7 @@ const getCard = (data) => {
     if (guestsEnding >= 10) {
       lastDigit = guestsEnding % 10;
     }
-    const result = (lastDigit === 1) ? `я` : `ей`;
-    return result;
+    return (lastDigit === 1) ? `я` : `ей`;
   };
 
   cardElement.querySelector(`.popup__text--capacity`).textContent = `${rooms} комнат${roomEnding(rooms)} для ${guests} гост${guestEnding(guests)}`;
@@ -115,17 +113,17 @@ const getCard = (data) => {
   return cardElement;
 };
 
-const openPopap = (pinData) => {
-  closePopap();
+const openPopup = (pinData) => {
+  closePopup();
   getCard(pinData);
   document.addEventListener(`keydown`, onMapEscPress);
 };
 
 const onMapEscPress = (evt) => {
-  isEscEvent(evt, closePopap);
+  isEscEvent(evt, closePopup);
 };
 
-const closePopap = () => {
+const closePopup = () => {
   const card = map.querySelector(`.map__card`);
   if (card) {
     card.remove();
@@ -134,6 +132,6 @@ const closePopap = () => {
 };
 
 window.card = {
-  openPopap,
-  closePopap,
+  openPopup,
+  closePopup,
 };

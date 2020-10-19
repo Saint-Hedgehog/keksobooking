@@ -1,18 +1,18 @@
 'use strict';
 
+const MAP_TOP = 130;
+const MAP_BOTTOM = 630;
+const MAP_LEFT = 0;
+const MAP_RIGHT = 1200;
+
 const {MAIN_PIN_WIDTH, MAIN_PIN_HEIGHT, PIN_TIP_HEIGHT, mainPin, setupAddress} = window.validation;
 const {map} = window.cityPlan;
 
-const mapTop = 130;
-const mapBottom = 630;
-const mapLeft = 0;
-const mapRight = 1200;
-
 const limits = {
-  top: map.offsetTop + mapTop - (MAIN_PIN_HEIGHT + PIN_TIP_HEIGHT),
-  right: mapRight + Math.ceil(MAIN_PIN_WIDTH / 2) - mainPin.offsetWidth,
-  bottom: mapBottom - (MAIN_PIN_HEIGHT + PIN_TIP_HEIGHT),
-  left: mapLeft + Math.ceil(MAIN_PIN_WIDTH / 2) - mainPin.offsetWidth
+  top: map.offsetTop + MAP_TOP - (MAIN_PIN_HEIGHT + PIN_TIP_HEIGHT),
+  right: MAP_RIGHT + Math.ceil(MAIN_PIN_WIDTH / 2) - mainPin.offsetWidth,
+  bottom: MAP_BOTTOM - (MAIN_PIN_HEIGHT + PIN_TIP_HEIGHT),
+  left: MAP_LEFT + Math.ceil(MAIN_PIN_WIDTH / 2) - mainPin.offsetWidth
 };
 
 

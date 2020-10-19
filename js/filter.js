@@ -15,7 +15,7 @@ const PriceValue = {
 
 const {getPins} = window.marker;
 const {map} = window.cityPlan;
-const {closePopap} = window.card;
+const {closePopup} = window.card;
 const {mapPins} = window.validation;
 
 const filterForm = document.querySelector(`.map__filters`);
@@ -59,7 +59,7 @@ const onFiltersSetNewAds = () => {
     }
   });
 
-  closePopap();
+  closePopup();
   updateDebouncedAds(newAds);
 };
 

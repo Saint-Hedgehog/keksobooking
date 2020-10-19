@@ -9,7 +9,7 @@ const {setupAddress, adForm, mainPin, initMainPinPosition, inputTitle, onInputTi
   inputPrice, onInputPriceCheckValidity, onInputPriceSetCustomValidity, selectType, onSelectTypeChange,
   selectCheckIn, onSelectCheckInChange, selectCheckOut, onSelectCheckOutChange, adFormRoomNumber,
   onAdFormRoomNumberChange} = window.validation;
-const {closePopap} = window.card;
+const {closePopup} = window.card;
 const {load, save} = window.backend;
 const {onMainPinSetAdressMouseMove} = window.shift;
 const {isEscEvent} = window.util;
@@ -19,6 +19,7 @@ const adSelects = adForm.querySelectorAll(`select`);
 const adInputs = adForm.querySelectorAll(`input`);
 const adTextarea = adForm.querySelector(`#description`);
 const adSubmit = adForm.querySelector(`.ad-form__submit`);
+const buttonReset = document.querySelector(`.ad-form__reset`);
 
 const setStatusDisabled = (elements) => {
   elements.forEach((element) => {
@@ -38,6 +39,8 @@ setStatusDisabled(adSelects);
 setStatusDisabled(adInputs);
 adTextarea.setAttribute(`disabled`, `true`);
 adSubmit.setAttribute(`disabled`, `true`);
+buttonReset.setAttribute(`disabled`, `true`);
+
 
 const onMainPinActivateMouseDown = (evt) => {
   if (evt.button === MOUSE_MAIN_BUTTON) {
@@ -98,7 +101,6 @@ const closeBannerError = () => {
   document.removeEventListener(`keydown`, onBannerErrorKeyDown);
 };
 
-const buttonReset = document.querySelector(`.ad-form__reset`);
 const onFormReset = (evt) => {
   evt.preventDefault();
   deactivatePage();
@@ -107,6 +109,7 @@ const onFormReset = (evt) => {
 const onAdFormSubmit = (evt) => {
   evt.preventDefault();
   adSubmit.setAttribute(`disabled`, `true`);
+  buttonReset.setAttribute(`disabled`, `true`);
   const data = new FormData(adForm);
   save(data, () => {
     deactivatePage();
@@ -116,7 +119,7 @@ const onAdFormSubmit = (evt) => {
 };
 
 const deactivatePage = () => {
-  closePopap();
+  closePopup();
   removePins();
   adForm.reset();
   map.classList.add(`map--faded`);
@@ -132,6 +135,7 @@ const deactivatePage = () => {
   setStatusDisabled(adInputs);
   adTextarea.setAttribute(`disabled`, `true`);
   adSubmit.setAttribute(`disabled`, `true`);
+  buttonReset.setAttribute(`disabled`, `true`);
 
   adForm.removeEventListener(`submit`, onAdFormSubmit);
 
@@ -161,6 +165,7 @@ const activatePage = () => {
   setStatusActive(mapFilterInputs);
   adTextarea.removeAttribute(`disabled`, `true`);
   adSubmit.removeAttribute(`disabled`, `true`);
+  buttonReset.removeAttribute(`disabled`, `true`);
 
   load(onLoad, onError);
 
