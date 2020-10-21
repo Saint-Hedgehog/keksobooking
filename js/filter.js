@@ -18,12 +18,12 @@ const {map} = window.cityPlan;
 const {closePopup} = window.card;
 const {mapPins} = window.validation;
 
-const formOnSityPlan = document.querySelector(`.map__filters`);
-const housingType = formOnSityPlan.querySelector(`#housing-type`);
-const housingPrice = formOnSityPlan.querySelector(`#housing-price`);
-const housingRoom = formOnSityPlan.querySelector(`#housing-rooms`);
-const housingGuest = formOnSityPlan.querySelector(`#housing-guests`);
-const featuresBlock = formOnSityPlan.querySelector(`.map__features`);
+const formOnСityPlan = document.querySelector(`.map__filters`);
+const housingType = formOnСityPlan.querySelector(`#housing-type`);
+const housingPrice = formOnСityPlan.querySelector(`#housing-price`);
+const housingRoom = formOnСityPlan.querySelector(`#housing-rooms`);
+const housingGuest = formOnСityPlan.querySelector(`#housing-guests`);
+const featuresBlock = formOnСityPlan.querySelector(`.map__features`);
 
 let ads;
 const onLoad = (data) => {
@@ -87,6 +87,6 @@ const filterHousingFeatures = (ad) => {
 window.filter = {
   onLoad,
   removePins,
-  formOnSityPlan,
+  formOnСityPlan,
   onFormSetNewAds,
 };

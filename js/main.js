@@ -13,7 +13,7 @@ const {closePopup} = window.card;
 const {load, save} = window.backend;
 const {onMainPinSetAddressMouseMove} = window.shift;
 const {isEscEvent, setStatusDisabled, setStatusActive} = window.util;
-const {onLoad, removePins, formOnSityPlan, onFormSetNewAds} = window.filter;
+const {onLoad, removePins, formOnСityPlan, onFormSetNewAds} = window.filter;
 const {setDisabled, setEnabled} = window.imageUpload;
 
 const adSelects = adForm.querySelectorAll(`select`);
@@ -129,7 +129,7 @@ const deactivatePage = () => {
   mainPin.addEventListener(`mousedown`, onMainPinActivateMouseDown);
   buttonReset.removeEventListener(`click`, onFormReset);
 
-  formOnSityPlan.removeEventListener(`change`, onFormSetNewAds);
+  formOnСityPlan.removeEventListener(`change`, onFormSetNewAds);
   inputTitle.removeEventListener(`input`, onInputTitleSetCustomValidity);
   inputPrice.removeEventListener(`invalid`, onInputPriceCheckValidity);
   inputPrice.removeEventListener(`input`, onInputPriceSetCustomValidity);
@@ -159,7 +159,7 @@ const activatePage = () => {
   mainPin.removeEventListener(`mousedown`, onMainPinActivateMouseDown);
   buttonReset.addEventListener(`click`, onFormReset);
 
-  formOnSityPlan.addEventListener(`change`, onFormSetNewAds);
+  formOnСityPlan.addEventListener(`change`, onFormSetNewAds);
   inputTitle.addEventListener(`input`, onInputTitleSetCustomValidity);
   inputPrice.addEventListener(`invalid`, onInputPriceCheckValidity);
   inputPrice.addEventListener(`input`, onInputPriceSetCustomValidity);
