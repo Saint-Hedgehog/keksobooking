@@ -41,14 +41,13 @@ const fileChooser = (file, onCheckPassed) => {
   }
 };
 
-const xxx = function (element) {
-  const editedStyle = stylesToPreview.images.edited;
-  element.setAttribute(`width`, editedStyle.width);
-  element.setAttribute(`height`, editedStyle.height);
+const setSomeStyles = (element, styles) => {
+  element.setAttribute(`width`, styles.width);
+  element.setAttribute(`height`, styles.height);
 
-  element.style.width = editedStyle.width;
-  element.style.height = editedStyle.height;
-  element.style.borderRadius = editedStyle.borderRadius;
+  element.style.width = styles.width;
+  element.style.height = styles.height;
+  element.style.borderRadius = styles.borderRadius;
   element.style.objectFit = `cover`;
 };
 
@@ -64,15 +63,8 @@ const uploadAvatar = (file) => {
   avatarPreview.addEventListener(`load`, onAvatarUpload);
   avatarPreview.src = URL.createObjectURL(file);
 
-  xxx();
-  // avatarPreview.setAttribute(`width`, editedStyle.width);
-  // avatarPreview.setAttribute(`height`, editedStyle.height);
-
-  // avatarPreview.style.width = editedStyle.width;
-  // avatarPreview.style.height = editedStyle.height;
-  // avatarPreview.style.borderRadius = editedStyle.borderRadius;
+  setSomeStyles(avatarPreview, editedStyle);
   avatarPreview.style.marginLeft = editedStyle.marginLeft;
-  // avatarPreview.style.objectFit = `cover`;
 };
 
 // Фотография жилья
@@ -81,7 +73,7 @@ const uploadImage = (fileName) => {
   divContainer.classList.add(`ad-form__photo`);
   photoContainer.appendChild(divContainer);
   const imageElement = document.createElement(`img`);
-  // const editedStyle = stylesToPreview.images.edited;
+  const editedStyle = stylesToPreview.images.edited;
 
   const onImageLoad = () => {
     URL.revokeObjectURL(imageElement.src);
@@ -91,15 +83,7 @@ const uploadImage = (fileName) => {
   imageElement.addEventListener(`load`, onImageLoad);
   imageElement.src = URL.createObjectURL(fileName);
 
-  xxx();
-  // imageElement.setAttribute(`alt`, ALT_TEXT);
-  // imageElement.setAttribute(`width`, editedStyle.width);
-  // imageElement.setAttribute(`height`, editedStyle.height);
-
-  // imageElement.style.width = editedStyle.width;
-  // imageElement.style.height = editedStyle.height;
-  // imageElement.style.borderRadius = editedStyle.borderRadius;
-  // imageElement.style.objectFit = `cover`;
+  setSomeStyles(imageElement, editedStyle);
   imageElement.setAttribute(`alt`, ALT_TEXT);
 
   examplePhotoContainer.remove();

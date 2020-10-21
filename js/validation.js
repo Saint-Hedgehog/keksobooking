@@ -10,8 +10,8 @@ const adForm = document.querySelector(`.ad-form`);
 // Проверка заполнения заголовка объявления
 const inputTitle = adForm.querySelector(`#title`);
 
-let minTitleLength = inputTitle.minLength;
-let maxTitleLength = inputTitle.maxLength;
+const minTitleLength = inputTitle.minLength;
+const maxTitleLength = inputTitle.maxLength;
 
 const onInputTitleSetCustomValidity = () => {
   let valueLength = inputTitle.value.length;

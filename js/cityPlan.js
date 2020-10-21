@@ -18,13 +18,13 @@ const onError = (errorMessage) => {
   error.style.top = `180px`;
   error.style.left = `0`;
   error.style.right = `0`;
-  error.style = `z-index: 100`;
+  error.style.zIndex = `100`;
   error.style.width = `790px`;
   error.style.height = `90px`;
-  error.style = `margin: 0 auto`;
+  error.style.margin = `0 auto`;
   error.style.paddingTop = `20px`;
   error.style.fontSize = `35px`;
-  error.style = `text-align: center`;
+  error.style.textAlign = `center`;
   error.style.color = `tomato`;
   error.style.backgroundColor = `navy`;
   error.style.border = `5px solid white`;
