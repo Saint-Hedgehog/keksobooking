@@ -4,7 +4,7 @@ const FILE_TYPES = [`gif`, `jpg`, `jpeg`, `png`];
 const DEFAULT_AVATAR_SRC = `img/muffin-grey.svg`;
 const ALT_TEXT = `Фотография жилья`;
 
-const StylesToPreview = {
+const stylesToPreview = {
   images: {
     default: {
       width: `40px`,
@@ -26,7 +26,7 @@ const {adForm} = window.validation;
 const avatarFileName = adForm.querySelector(`#avatar`);
 const avatarPreview = adForm.querySelector(`.ad-form-header__preview img`);
 
-const imagesFileName = adForm.querySelector(`#images`);
+const houseImagesInput = adForm.querySelector(`#images`);
 const examplePhotoContainer = adForm.querySelector(`.ad-form__photo`);
 const photoContainer = document.querySelector(`.ad-form__photo-container`);
 
@@ -41,9 +41,20 @@ const fileChooser = (file, onCheckPassed) => {
   }
 };
 
+const xxx = function (element) {
+  const editedStyle = stylesToPreview.images.edited;
+  element.setAttribute(`width`, editedStyle.width);
+  element.setAttribute(`height`, editedStyle.height);
+
+  element.style.width = editedStyle.width;
+  element.style.height = editedStyle.height;
+  element.style.borderRadius = editedStyle.borderRadius;
+  element.style.objectFit = `cover`;
+};
+
 // Загружаем вашу фотографию (для карты)
-const uploadAvatar = (fileName) => {
-  const editedStyle = StylesToPreview.images.edited;
+const uploadAvatar = (file) => {
+  const editedStyle = stylesToPreview.images.edited;
 
   const onAvatarUpload = () => {
     URL.revokeObjectURL(avatarPreview.src);
@@ -51,15 +62,17 @@ const uploadAvatar = (fileName) => {
   };
 
   avatarPreview.addEventListener(`load`, onAvatarUpload);
-  avatarPreview.src = URL.createObjectURL(fileName);
+  avatarPreview.src = URL.createObjectURL(file);
 
-  avatarPreview.setAttribute(`width`, editedStyle.width);
-  avatarPreview.setAttribute(`height`, editedStyle.height);
+  xxx();
+  // avatarPreview.setAttribute(`width`, editedStyle.width);
+  // avatarPreview.setAttribute(`height`, editedStyle.height);
 
-  avatarPreview.style.width = editedStyle.width;
-  avatarPreview.style.height = editedStyle.height;
-  avatarPreview.style.borderRadius = editedStyle.borderRadius;
+  // avatarPreview.style.width = editedStyle.width;
+  // avatarPreview.style.height = editedStyle.height;
+  // avatarPreview.style.borderRadius = editedStyle.borderRadius;
   avatarPreview.style.marginLeft = editedStyle.marginLeft;
+  // avatarPreview.style.objectFit = `cover`;
 };
 
 // Фотография жилья
@@ -68,7 +81,7 @@ const uploadImage = (fileName) => {
   divContainer.classList.add(`ad-form__photo`);
   photoContainer.appendChild(divContainer);
   const imageElement = document.createElement(`img`);
-  const editedStyle = StylesToPreview.images.edited;
+  // const editedStyle = stylesToPreview.images.edited;
 
   const onImageLoad = () => {
     URL.revokeObjectURL(imageElement.src);
@@ -78,13 +91,16 @@ const uploadImage = (fileName) => {
   imageElement.addEventListener(`load`, onImageLoad);
   imageElement.src = URL.createObjectURL(fileName);
 
-  imageElement.setAttribute(`alt`, ALT_TEXT);
-  imageElement.setAttribute(`width`, editedStyle.width);
-  imageElement.setAttribute(`height`, editedStyle.height);
+  xxx();
+  // imageElement.setAttribute(`alt`, ALT_TEXT);
+  // imageElement.setAttribute(`width`, editedStyle.width);
+  // imageElement.setAttribute(`height`, editedStyle.height);
 
-  imageElement.style.width = editedStyle.width;
-  imageElement.style.height = editedStyle.height;
-  imageElement.style.borderRadius = editedStyle.borderRadius;
+  // imageElement.style.width = editedStyle.width;
+  // imageElement.style.height = editedStyle.height;
+  // imageElement.style.borderRadius = editedStyle.borderRadius;
+  // imageElement.style.objectFit = `cover`;
+  imageElement.setAttribute(`alt`, ALT_TEXT);
 
   examplePhotoContainer.remove();
   divContainer.appendChild(imageElement);
@@ -94,17 +110,17 @@ const onAvatarFileNameChange = () => {
   fileChooser(avatarFileName.files[0], uploadAvatar);
 };
 
-const onImagesFileNameChange = () => {
-  fileChooser(imagesFileName.files[0], uploadImage);
+const onHouseImagesInputChange = () => {
+  fileChooser(houseImagesInput.files[0], uploadImage);
 };
 
 const setEnabled = () => {
   avatarFileName.addEventListener(`change`, onAvatarFileNameChange);
-  imagesFileName.addEventListener(`change`, onImagesFileNameChange);
+  houseImagesInput.addEventListener(`change`, onHouseImagesInputChange);
 };
 
 const setDisabled = () => {
-  const defaultStyle = StylesToPreview.images.default;
+  const defaultStyle = stylesToPreview.images.default;
 
   avatarPreview.style.width = defaultStyle.width;
   avatarPreview.style.height = defaultStyle.height;
@@ -116,13 +132,10 @@ const setDisabled = () => {
   removePhotoContainers.forEach((removePhotoContainer) => {
     removePhotoContainer.remove();
   });
-
-  const divContainer = document.createElement(`div`);
-  divContainer.classList.add(`ad-form__photo`);
-  photoContainer.appendChild(divContainer);
+  photoContainer.appendChild(examplePhotoContainer);
 
   avatarFileName.removeEventListener(`change`, onAvatarFileNameChange);
-  imagesFileName.removeEventListener(`change`, onImagesFileNameChange);
+  houseImagesInput.removeEventListener(`change`, onHouseImagesInputChange);
 };
 
 window.imageUpload = {

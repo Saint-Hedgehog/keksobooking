@@ -36,12 +36,12 @@ const getCard = (data) => {
   cardFeaturesContainer.innerHTML = ``;
 
   // В блок .popup__photos вводим все фотографии из списка offer.photos
-  const renderPhotos = (popupPhotos, photosCard) => {
+  const renderPhotos = (popupPhotos, photoSources) => {
     const cardPhotos = popupPhotos.querySelector(`.popup__photos`);
     const cardPhoto = cardPhotos.querySelector(`img`);
 
     cardPhotos.innerHTML = ``;
-    photosCard.forEach((photo) => {
+    photoSources.forEach((photo) => {
       const newcardPhoto = cardPhoto.cloneNode(true);
       newcardPhoto.src = photo;
       cardFragment.appendChild(newcardPhoto);

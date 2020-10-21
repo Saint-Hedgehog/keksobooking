@@ -13,7 +13,21 @@ const isEnterEvent = (evt, callback) => {
   }
 };
 
+const setStatusDisabled = (elements) => {
+  elements.forEach((element) => {
+    element.setAttribute(`disabled`, `true`);
+  });
+};
+
+const setStatusActive = (elements) => {
+  elements.forEach((element) => {
+    element.removeAttribute(`disabled`);
+  });
+};
+
 window.util = {
   isEscEvent,
   isEnterEvent,
+  setStatusDisabled,
+  setStatusActive,
 };
