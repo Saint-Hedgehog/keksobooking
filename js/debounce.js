@@ -7,9 +7,9 @@ window.debounce = (cb) => {
 
   return (...args) => {
     if (lastTimeout) {
-      window.clearTimeout(lastTimeout);
+      clearTimeout(lastTimeout);
     }
-    lastTimeout = window.setTimeout(() => {
+    lastTimeout = setTimeout(() => {
       cb(...args);
     }, DEBOUNCE_INTERVAL);
   };

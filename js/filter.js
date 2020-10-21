@@ -18,12 +18,12 @@ const {map} = window.cityPlan;
 const {closePopup} = window.card;
 const {mapPins} = window.validation;
 
-const filterForm = document.querySelector(`.map__filters`);
-const housingType = filterForm.querySelector(`#housing-type`);
-const housingPrice = filterForm.querySelector(`#housing-price`);
-const housingRoom = filterForm.querySelector(`#housing-rooms`);
-const housingGuest = filterForm.querySelector(`#housing-guests`);
-const featuresBlock = filterForm.querySelector(`.map__features`);
+const formOnSityPlan = document.querySelector(`.map__filters`);
+const housingType = formOnSityPlan.querySelector(`#housing-type`);
+const housingPrice = formOnSityPlan.querySelector(`#housing-price`);
+const housingRoom = formOnSityPlan.querySelector(`#housing-rooms`);
+const housingGuest = formOnSityPlan.querySelector(`#housing-guests`);
+const featuresBlock = formOnSityPlan.querySelector(`.map__features`);
 
 let ads;
 const onLoad = (data) => {
@@ -46,7 +46,7 @@ const updateAds = (data) => {
 
 const updateDebouncedAds = window.debounce(updateAds);
 
-const onFiltersSetNewAds = () => {
+const onFormSetNewAds = () => {
   let newAds = [];
 
   ads.forEach((ad) => {
@@ -87,6 +87,6 @@ const filterHousingFeatures = (ad) => {
 window.filter = {
   onLoad,
   removePins,
-  filterForm,
-  onFiltersSetNewAds,
+  formOnSityPlan,
+  onFormSetNewAds,
 };

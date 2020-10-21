@@ -1,5 +1,6 @@
 'use strict';
 
+const FILE_TYPES = [`gif`, `jpg`, `jpeg`, `png`];
 const DEFAULT_AVATAR_SRC = `img/muffin-grey.svg`;
 const ALT_TEXT = `Фотография жилья`;
 
@@ -29,6 +30,27 @@ const houseImagesInput = adForm.querySelector(`#images`);
 const examplePhotoContainer = adForm.querySelector(`.ad-form__photo`);
 const photoContainer = document.querySelector(`.ad-form__photo-container`);
 
+// Проверяем файл на соответствие читаемого типа
+const fileChooser = (file, onCheckPassed) => {
+  const fileName = file.name.toLowerCase();
+
+  const matches = FILE_TYPES.some((it) => fileName.endsWith(it));
+
+  if (matches) {
+    onCheckPassed(file);
+  }
+};
+
+const setSomeStyles = (element, styles) => {
+  element.setAttribute(`width`, styles.width);
+  element.setAttribute(`height`, styles.height);
+
+  element.style.width = styles.width;
+  element.style.height = styles.height;
+  element.style.borderRadius = styles.borderRadius;
+  element.style.objectFit = `cover`;
+};
+
 // Загружаем вашу фотографию (для карты)
 const uploadAvatar = (file) => {
   const editedStyle = stylesToPreview.images.edited;
@@ -41,14 +63,8 @@ const uploadAvatar = (file) => {
   avatarPreview.addEventListener(`load`, onAvatarUpload);
   avatarPreview.src = URL.createObjectURL(file);
 
-  avatarPreview.setAttribute(`width`, editedStyle.width);
-  avatarPreview.setAttribute(`height`, editedStyle.height);
-
-  avatarPreview.style.width = editedStyle.width;
-  avatarPreview.style.height = editedStyle.height;
-  avatarPreview.style.borderRadius = editedStyle.borderRadius;
+  setSomeStyles(avatarPreview, editedStyle);
   avatarPreview.style.marginLeft = editedStyle.marginLeft;
-  avatarPreview.style.objectFit = `cover`;
 };
 
 // Фотография жилья
@@ -67,25 +83,19 @@ const uploadImage = (fileName) => {
   imageElement.addEventListener(`load`, onImageLoad);
   imageElement.src = URL.createObjectURL(fileName);
 
+  setSomeStyles(imageElement, editedStyle);
   imageElement.setAttribute(`alt`, ALT_TEXT);
-  imageElement.setAttribute(`width`, editedStyle.width);
-  imageElement.setAttribute(`height`, editedStyle.height);
-
-  imageElement.style.width = editedStyle.width;
-  imageElement.style.height = editedStyle.height;
-  imageElement.style.borderRadius = editedStyle.borderRadius;
-  imageElement.style.objectFit = `cover`;
 
   examplePhotoContainer.remove();
   divContainer.appendChild(imageElement);
 };
 
 const onAvatarFileNameChange = () => {
-  uploadAvatar(avatarFileName.files[0]);
+  fileChooser(avatarFileName.files[0], uploadAvatar);
 };
 
 const onHouseImagesInputChange = () => {
-  uploadImage(houseImagesInput.files[0]);
+  fileChooser(houseImagesInput.files[0], uploadImage);
 };
 
 const setEnabled = () => {

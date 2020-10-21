@@ -10,16 +10,16 @@ const adForm = document.querySelector(`.ad-form`);
 // Проверка заполнения заголовка объявления
 const inputTitle = adForm.querySelector(`#title`);
 
-let minTitleLength = inputTitle.minLength;
-let maxTitleLengtn = inputTitle.maxLength;
+const minTitleLength = inputTitle.minLength;
+const maxTitleLength = inputTitle.maxLength;
 
 const onInputTitleSetCustomValidity = () => {
   let valueLength = inputTitle.value.length;
 
   if (valueLength < minTitleLength) {
     inputTitle.setCustomValidity(`Минимальная длина — 30 символов, ещё ${minTitleLength - valueLength} символов`);
-  } else if (valueLength > maxTitleLengtn) {
-    inputTitle.setCustomValidity(`Максимальная длина — 100 символов, удалите лишние ${valueLength - maxTitleLengtn} символов`);
+  } else if (valueLength > maxTitleLength) {
+    inputTitle.setCustomValidity(`Максимальная длина — 100 символов, удалите лишние ${valueLength - maxTitleLength} символов`);
   } else {
     inputTitle.setCustomValidity(``);
   }
@@ -120,8 +120,8 @@ const capacityValidValues = {
 };
 
 const setFormCapacity = () => {
-  let rooms = adFormRoomNumber.value;
-  let options = adFormGuestNumber.querySelectorAll(`option`);
+  const rooms = adFormRoomNumber.value;
+  const options = adFormGuestNumber.querySelectorAll(`option`);
   options.forEach((option) => {
     option.disabled = capacityValidValues[rooms].indexOf(option.value) === -1;
   });

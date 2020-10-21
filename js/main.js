@@ -11,9 +11,9 @@ const {setupAddress, adForm, mainPin, initMainPinPosition, inputTitle, onInputTi
   onAdFormRoomNumberChange} = window.validation;
 const {closePopup} = window.card;
 const {load, save} = window.backend;
-const {onMainPinSetAdressMouseMove} = window.shift;
-const {isEscEvent} = window.util;
-const {onLoad, removePins, filterForm, onFiltersSetNewAds} = window.filter;
+const {onMainPinSetAddressMouseMove} = window.shift;
+const {isEscEvent, setStatusDisabled, setStatusActive} = window.util;
+const {onLoad, removePins, formOnSityPlan, onFormSetNewAds} = window.filter;
 const {setDisabled, setEnabled} = window.imageUpload;
 
 const adSelects = adForm.querySelectorAll(`select`);
@@ -21,18 +21,6 @@ const adInputs = adForm.querySelectorAll(`input`);
 const adTextarea = adForm.querySelector(`#description`);
 const adSubmit = adForm.querySelector(`.ad-form__submit`);
 const buttonReset = document.querySelector(`.ad-form__reset`);
-
-const setStatusDisabled = (elements) => {
-  elements.forEach((element) => {
-    element.setAttribute(`disabled`, `true`);
-  });
-};
-
-const setStatusActive = (elements) => {
-  elements.forEach((element) => {
-    element.removeAttribute(`disabled`, `true`);
-  });
-};
 
 setStatusDisabled(mapFilterSelects);
 setStatusDisabled(mapFilterInputs);
@@ -50,7 +38,7 @@ const onMainPinActivateMouseDown = (evt) => {
 };
 
 mainPin.addEventListener(`mousedown`, onMainPinActivateMouseDown);
-mainPin.addEventListener(`mousedown`, onMainPinSetAdressMouseMove);
+mainPin.addEventListener(`mousedown`, onMainPinSetAddressMouseMove);
 
 // Сообщение удачного отправления формы
 const successTemplate = document.querySelector(`#success`).content.querySelector(`.success`);
@@ -134,16 +122,14 @@ const deactivatePage = () => {
   setStatusDisabled(mapFilterInputs);
   setStatusDisabled(adSelects);
   setStatusDisabled(adInputs);
-  adTextarea.setAttribute(`disabled`, `true`);
-  adSubmit.setAttribute(`disabled`, `true`);
-  buttonReset.setAttribute(`disabled`, `true`);
+  setStatusDisabled([adTextarea, adSubmit, buttonReset]);
 
   adForm.removeEventListener(`submit`, onAdFormSubmit);
 
   mainPin.addEventListener(`mousedown`, onMainPinActivateMouseDown);
   buttonReset.removeEventListener(`click`, onFormReset);
 
-  filterForm.removeEventListener(`change`, onFiltersSetNewAds);
+  formOnSityPlan.removeEventListener(`change`, onFormSetNewAds);
   inputTitle.removeEventListener(`input`, onInputTitleSetCustomValidity);
   inputPrice.removeEventListener(`invalid`, onInputPriceCheckValidity);
   inputPrice.removeEventListener(`input`, onInputPriceSetCustomValidity);
@@ -164,9 +150,7 @@ const activatePage = () => {
   setStatusActive(adSelects);
   setStatusActive(mapFilterSelects);
   setStatusActive(mapFilterInputs);
-  adTextarea.removeAttribute(`disabled`, `true`);
-  adSubmit.removeAttribute(`disabled`, `true`);
-  buttonReset.removeAttribute(`disabled`, `true`);
+  setStatusActive([adTextarea, adSubmit, buttonReset]);
 
   load(onLoad, onError);
 
@@ -175,7 +159,7 @@ const activatePage = () => {
   mainPin.removeEventListener(`mousedown`, onMainPinActivateMouseDown);
   buttonReset.addEventListener(`click`, onFormReset);
 
-  filterForm.addEventListener(`change`, onFiltersSetNewAds);
+  formOnSityPlan.addEventListener(`change`, onFormSetNewAds);
   inputTitle.addEventListener(`input`, onInputTitleSetCustomValidity);
   inputPrice.addEventListener(`invalid`, onInputPriceCheckValidity);
   inputPrice.addEventListener(`input`, onInputPriceSetCustomValidity);
